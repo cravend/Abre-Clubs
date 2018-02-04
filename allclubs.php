@@ -83,32 +83,35 @@ require_once(dirname(__FILE__) . '/../../core/abre_functions.php');
 			<br/>
 		</div>
 		<!-- thired row of clubs -->
-		<div = class 'row'>
-			<div class='mdl-card mdl-shadow--2dp card_stream hoverable' style='float:left;'>
-				<h4 class='center-align'>Coding Club</h4>
-				<div class="mdl-card__media mdl-color--grey-100 mdl-card--expand valign-wrapper cardclick pointer" style="height:200px; background-image: url(https://global-uploads.webflow.com/586cc078fcd66fc24dc054b4/5975ab1d6e571824118fb904_Blue%20Code.svg); background-color: <?php echo getSiteColor() ?> !important; overflow:hidden;"></div>
-				<div class='mdl-card__actions'>
-					<a class='mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' href='#' style='color:<?php echo getSiteColor() ?>;'>Link to Homepage</a>
+		<div class='row'>
+			<div class='row'>
+				<div class='mdl-card mdl-shadow--2dp card_stream hoverable' style='float:left;'>
+					<h4 class='center-align'>Coding Club</h4>
+					<div class="mdl-card__media mdl-color--grey-100 mdl-card--expand valign-wrapper cardclick pointer" style="height:200px; background-image: url(https://global-uploads.webflow.com/586cc078fcd66fc24dc054b4/5975ab1d6e571824118fb904_Blue%20Code.svg); background-color: <?php echo getSiteColor() ?> !important; overflow:hidden;"></div>
+					<div class='mdl-card__actions'>
+						<a class='mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' href='#' style='color:<?php echo getSiteColor() ?>;'>Link to Homepage</a>
+					</div>
+				</div>
+				<div class='mdl-card mdl-shadow--2dp card_stream hoverable' style='float:left;'>
+					<h4 class='center-align'>Firday Freetime</h4>
+					<div class='mdl-card__media mdl-color--grey-100 mdl-card--expand cardclick pointer' style='height:200px; background-image: url(https://i.ytimg.com/vi/uYs4c9AawmE/maxresdefault.jpg); background-color: <?php echo getSiteColor() ?> !important; overflow:hidden;'></div>
+					<div class='mdl-card__actions'>
+						<a class='mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' href='#' style='color:<?php echo getSiteColor() ?>;'>Link to Homepage</a>
+					</div>
+				</div>
+				<div class='mdl-card mdl-shadow--2dp card_stream hoverable' style='float:left;'>
+					<h4 class='center-align'>Over The Wire</h4>
+					<div class='mdl-card__media mdl-color--grey-100 mdl-card--expand cardclick pointer' style='height:200px; background-image: url(https://pbs.twimg.com/profile_images/814420266583400449/GBz31NqB.jpg); background-color: <?php echo getSiteColor() ?> !important; overflow:hidden;'></div>
+					<div class='mdl-card__actions'>
+						<a class='mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' href='#' style='color:<?php echo getSiteColor() ?>;'>Link to Homepage</a>
+					</div>
 				</div>
 			</div>
-			<div class='mdl-card mdl-shadow--2dp card_stream hoverable' style='float:left;'>
-				<h4 class='center-align'>Firday Freetime</h4>
-				<div class='mdl-card__media mdl-color--grey-100 mdl-card--expand cardclick pointer' style='height:200px; background-image: url(https://i.ytimg.com/vi/uYs4c9AawmE/maxresdefault.jpg); background-color: <?php echo getSiteColor() ?> !important; overflow:hidden;'></div>
-				<div class='mdl-card__actions'>
-					<a class='mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' href='#' style='color:<?php echo getSiteColor() ?>;'>Link to Homepage</a>
-				</div>
-			</div>
-			<div class='mdl-card mdl-shadow--2dp card_stream hoverable' style='float:left;'>
-				<h4 class='center-align'>Over The Wire</h4>
-				<div class='mdl-card__media mdl-color--grey-100 mdl-card--expand cardclick pointer' style='height:200px; background-image: url(https://pbs.twimg.com/profile_images/814420266583400449/GBz31NqB.jpg); background-color: <?php echo getSiteColor() ?> !important; overflow:hidden;'></div>
-				<div class='mdl-card__actions'>
-					<a class='mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' href='#' style='color:<?php echo getSiteColor() ?>;'>Link to Homepage</a>
-				</div>
-			</div>
+			<br/>
 		</div>
-		<br/>
+		<!-- more rows go here -->
 	</div>
-
+</div>
 
 <!-- club creator button -->
 <div class='fixed-action-btn buttonpin'>
