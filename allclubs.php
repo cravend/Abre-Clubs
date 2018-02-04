@@ -110,7 +110,7 @@ require_once(dirname(__FILE__) . '/../../core/abre_functions.php');
 	</div>
 
 
-<!--club creator button-->
+<!-- club creator button -->
 <div class='fixed-action-btn buttonpin'>
 	<a class='modal-newclub btn-floating btn-large waves-effect waves-light' style='background-color: <?php echo getSiteColor(); ?>' href='#clubmodal'><i class='large material-icons'>add</i></a>
 	<div class="mdl-tooltip mdl-tooltip--left" for="createcourse">New Club</div>
