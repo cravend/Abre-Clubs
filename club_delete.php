@@ -18,25 +18,29 @@
 
 	//Required configuration files
 	require_once(dirname(__FILE__) . '/../../core/abre_verification.php');
-	require_once(dirname(__FILE__) . '/../../core/abre_functions.php');
+	require_once(dirname(__FILE__) . '/../../core/abre_dbconnect.php');
+
+	$libraryclubid=mysqli_real_escape_string($db, $_GET["libraryclubid"]);
+
+	//Delete Club from libraries
+	$stmt = $db->stmt_init();
+	$sql = "Delete from club_libraries where Club_ID='$libraryclubid'";
+	$stmt->prepare($sql);
+	$stmt->execute();
+	$stmt->store_result();
+	$num_rows = $stmt->num_rows;
+	$stmt->close();
+
+	//Delete club
+	$stmt = $db->stmt_init();
+	$sql = "Delete from club_info where id='$libraryclubid' LIMIT 1";
+	$stmt->prepare($sql);
+	$stmt->execute();
+	$stmt->store_result();
+	$num_rows = $stmt->num_rows;
+	$stmt->close();
+
+	$db->close();
+	echo "The club has been deleted.";
 
 ?>
-
-    <div class="col s12">
-		<ul class="tabs_2" style='background-color: <?php echo getSiteColor(); ?>'>
-			<li class="tab col s3 tab_1 clubmenu pointer" data="#clubs"><a href="#clubs" class='mdl-color-text--white'>My Clubs</a></li>
-			<li class="tab col s3 tab_2 clubmenu pointer" data="#clubs/directory"><a href="#clubs/directory" class='mdl-color-text--white'>All Clubs</a></li>
-		</ul>
-	</div>
-
-<script>
-
-	$(function()
-	{
-		$( ".clubmenu" ).click(function()
-		{
-			window.open($(this).attr("data"), '_self');
-		});
-	});
-
-</script>
