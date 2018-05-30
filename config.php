@@ -1,7 +1,7 @@
 <?php
 
 	/*
-	* Copyright (C) 2016-2017 Abre.io LLC
+	* Copyright (C) 2016-2018 Abre.io Inc.
 	*
 	* This program is free software: you can redistribute it and/or modify
     * it under the terms of the Affero General Public License version 3
@@ -18,19 +18,21 @@
 
 	//Required configuration files
 	require_once(dirname(__FILE__) . '/../../core/abre_verification.php');
-	require(dirname(__FILE__) . '/../../core/abre_dbconnect.php');
+	require(dirname(__FILE__) . '/../../core/abre_version.php');
 
 	//Check for installation
-	if(superadmin()){ require('installer.php'); }
+	if(admin()){ require('installer.php'); }
 
-	$pageview=1;
-	$drawerhidden=1;
-	$pageorder=10;
-	$pagetitle="Clubs";
-	$description="Organize various groups and clubs.";
-	$version="0.1.0";
-	$repo="cravend/Abre-Clubs";
-	$pageicon="basketball";
-	$pagepath="clubs";
+	$pageview = 1;
+	$drawerhidden = 0;
+	$pageorder = 10;
+	$pagetitle = "Clubs";
+	$description = "A curriculum organizer and lesson planner for teachers.";
+	$version = $abre_version;
+	$repo = NULL;
+	$pageicon = "layers";
+	$pagepath = "clubs";
+
 	require_once('permissions.php');
+
 ?>

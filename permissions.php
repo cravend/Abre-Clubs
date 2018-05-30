@@ -1,7 +1,7 @@
 <?php
 
 	/*
-	* Copyright (C) 2016-2017 Abre.io LLC
+	* Copyright (C) 2016-2018 Abre.io Inc.
 	*
 	* This program is free software: you can redistribute it and/or modify
     * it under the terms of the Affero General Public License version 3
@@ -22,11 +22,30 @@
 	require_once(dirname(__FILE__) . '/../../core/abre_functions.php');
 
 	//Check for Admin Authentication
-	$drawerhidden = 1;
-	$pagerestrictions = "";
+	$pagerestrictions="students";
+	$pagerestrictionsedit="staff, students";
+	$permissionsetting=encrypt("Administrator", "");
+	if($db->query("SELECT * FROM directory LIMIT 1")){
+		$sql = "SELECT * FROM directory WHERE email = '".$_SESSION['useremail']."' AND permissions = '$permissionsetting'";
+		$result = $db->query($sql);
+		while($row = $result->fetch_assoc())
+		{
+			$pagerestrictionsedit="";
+		}
+	}
 
-	if($_SESSION['usertype'] == 'staff'){
-		$drawerhidden=0;
+	if($_SESSION['usertype']=="staff")
+	{
 		$pagerestrictions="";
 	}
+
+	if(admin()){
+		$pagerestrictionsedit="";
+	}
+
+	if($_SESSION['usertype'] == 'parent')
+	{
+        $drawerhidden = 1;
+    }
+
 ?>

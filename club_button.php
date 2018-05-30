@@ -1,4 +1,4 @@
-<?php
+club<?php
 
 	/*
 	* Copyright (C) 2016-2018 Abre.io Inc.
@@ -20,23 +20,30 @@
 	require_once(dirname(__FILE__) . '/../../core/abre_verification.php');
 	require_once(dirname(__FILE__) . '/../../core/abre_functions.php');
 
+	if($pagerestrictionsedit=="")
+	{
 ?>
 
-    <div class="col s12">
-		<ul class="tabs_2" style='background-color: <?php echo getSiteColor(); ?>'>
-			<li class="tab col s3 tab_1 clubmenu pointer" data="#clubs"><a href="#clubs" class='mdl-color-text--white'>My Clubs</a></li>
-			<li class="tab col s3 tab_2 clubmenu pointer" data="#clubs/directory"><a href="#clubs/directory" class='mdl-color-text--white'>All Clubs</a></li>
-		</ul>
-	</div>
+		<div class='fixed-action-btn buttonpin'>
+			<a class='modal-addclub btn-floating btn-large waves-effect waves-light' style='background-color: <?php echo getSiteColor(); ?>' id="create_club" data-grade='blank' data-subject='blank' data-position='left' data-title='' href='#club'><i class='large material-icons'>add</i></a>
+			<div class="mdl-tooltip mdl-tooltip--left" for="create_club">Create Club</div>
+		</div>
+
+<?php
+	}
+?>
 
 <script>
 
 	$(function()
 	{
-		$( ".clubmenu" ).click(function()
-		{
-			window.open($(this).attr("data"), '_self');
-		});
-	});
+
+    	$('.modal-addclub').leanModal({
+	    	in_duration: 0,
+				out_duration: 0,
+	    	ready: function() { $("#club_title").focus(); }
+    	});
+
+  	});
 
 </script>
