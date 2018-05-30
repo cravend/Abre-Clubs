@@ -32,7 +32,7 @@ require_once(dirname(__FILE__) . '/../../core/abre_functions.php');
 		<div class='row'>
 			<div class='row'>
 				<div class='mdl-card mdl-shadow--2dp card_stream hoverable' style='float:left;'>
-					<h4 class='center-align'>Test Test Club</h4>
+					<h4 class='center-align'>Running Club</h4>
 					<div class="mdl-card__media mdl-color--grey-100 mdl-card--expand valign-wrapper cardclick pointer" style="height:200px; background-image: url(https://openclipart.org/download/216274/1427059148.svg); background-color: <?php echo getSiteColor() ?> !important; overflow:hidden;"></div>
 					<div class='mdl-card__actions'>
 						<a class='mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' href='#' style='color:<?php echo getSiteColor() ?>;'>Link to Homepage</a>
