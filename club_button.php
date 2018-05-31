@@ -1,4 +1,4 @@
-club<?php
+<?php
 
 	/*
 	* Copyright (C) 2016-2018 Abre.io Inc.
