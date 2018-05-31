@@ -76,55 +76,69 @@
 			echo "<div class='col l4 m12 s12'>";
 				echo "<div class='mdl-shadow--2dp' style='background-color:#fff; padding:30px 35px 15px 35px;'>";
 
-					//Name
-					echo "<div class='center-align'><img src='modules/".basename(__DIR__)."/images/$Image' style='max-width:100%; max-height:100%;'></div>";
-					echo "<h4 class='center-align'>$Name</h4>";
-					echo "<p>$Description</p>";
-
-					//Break
-					echo "<hr>";
-					//Basic Information
-					echo "<h5>Club Information</h5>";
-
-
-					$lead = explode(",", $Editors);
-					echo "<ul>";
-					echo "<li>hi: " . GetStaffFirstName($lead[0]) . "</li>";
-					// $i = 0;
-					// while (trim($lead[$i]) != NULL) {
-					// 	$lead[$i] = trim($lead[$i]);
-					// 	if (GetStudentFirstName($lead[$i]) != "") {
-					// 		echo "<li>name: " . GetStudentFirstName($lead[$i]) . "</li>";
-					// 	} elseif (GetStaffFirstName($lead[$i]) != "") {
-					// 		echo "<li>staff name: " . GetStaffFirstName($lead[$i]) . "</li>";
-					// 	}
-					// 	$i++;
-					// }
-					echo "</ul>";
+					if(admin()){
+						//Name
+						echo "<div class='center-align'><img src='modules/".basename(__DIR__)."/images/$Image' style='max-width:100%; max-height:100%;'></div>";
+						echo "<h4 class='center-align'>$Name</h4>";
+						echo "<span class='input-field'><textarea id='clubdescription' style='overflow-y:hidden;resize:none;'>$Description</textarea></span>";
 
 						echo "<p>";
-							//Student Email
-							echo "<b>Email:</b> ";
-							if(admin()){
-								if($Student_Email != ""){
-									echo "<span class='input-field'><input id='studentemail' type='text' value='$Student_Email'></span><br>";
-								}else{
-									echo "<span class='input-field'><input id='studentemail' type='text' placeholder='No Associated Email'></span><br>";
-								}
-							}
-							else{
-								if($Student_Email != ""){
-									echo "<span>$Student_Email</span><br>";
-								}else{
-									echo "<span>No Associated Email</span><br>";
-								}
-							}
+						//Club Email
+						echo "<b>Email:</b> ";
+						if($Email != ""){
+							echo "<span class='input-field'><input id='clubemail' type='email' value='$Email'></span><br>";
+						}else{
+							echo "<span class='input-field'><input id='clubemail' type='email' placeholder='No Associated Email'></span><br>";
+						}
+						//Club Building
+						echo "<b>Building:</b> ";
+						if($Building != ""){
+							echo "<span class='input-field'><input id='clubbuilding' type='text' value='$Building'></span><br>";
+						}else{
+							echo "<span class='input-field'><input id='clubbuilding' type='text' placeholder='No Associated Building'></span><br>";
+						}
+						//Club Categories
+						echo "<b>Categories:</b> ";
+						if($Categories != ""){
+							echo "<span class='input-field'><input id='clubcategories' type='text' value='$Categories'></span><br>";
+						}else{
+							echo "<span class='input-field'><input id='clubcategories' type='text' placeholder='No Associated Categories'></span><br>";
+						}
 						echo "</p>";
 
-						//Save Button for Email
-						if(admin()){
-							echo "<button class='waves-effect btn-flat white-text' id='updateemail' style='width:100%; background-color:"; echo getSiteColor(); echo "; margin-bottom:20px;'>Save Email</button>";
+
+
+						echo "<button class='waves-effect btn-flat white-text' id='updateclub' style='width:100%; background-color:"; echo getSiteColor(); echo "; margin-bottom:20px;'>Save Club</button>";
+					}
+					else{
+						echo "<div class='center-align'><img src='modules/".basename(__DIR__)."/images/$Image' style='max-width:100%; max-height:100%;'></div>";
+						echo "<h4 class='center-align'>$Name</h4>";
+						echo "<p>$Description</p>";
+
+						echo "<p>";
+						//Club Email
+						echo "<b>Email:</b> ";
+						if($Email != ""){
+							echo "<span>$Email</span><br>";
+						}else{
+							echo "<span>No Associated Email</span><br>";
 						}
+						//Club Building
+						echo "<b>Building:</b> ";
+						if($Building != ""){
+							echo "<span>$Building</span><br>";
+						}else{
+							echo "<span>No Associated Building</span><br>";
+						}
+						//Club Categories
+						echo "<b>Categories:</b> ";
+						if($Categories != ""){
+							echo "<span>$Categories</span><br>";
+						}else{
+							echo "<span>No Associated Categories</span><br>";
+						}
+						echo "</p>";
+					}
 
 
 
@@ -146,36 +160,15 @@
 	$(function()
 	{
 
-	    $('ul.tabs').tabs();
+    $('ul.tabs').tabs();
 
-	    $("#myTable").tablesorter({
+    $("#myTable").tablesorter({
 
-    	});
+  	});
 
-		//Reset Parent Access Token
-		$("#resettoken").unbind().click(function(event)
-		{
-			event.preventDefault();
-			var Student_ID = $(this).data('studentid');
-			var Token = $(this).data('token');
-			var result = confirm('Are you sure you want to proceed? This will create new key for this student and invalidate the current parent keys.');
-			if(result){
-				$("#resettoken").html("Resetting Token...");
-				$.post("/modules/Abre-Students/generate_new_key.php", { studentid: Student_ID, token: Token }, function(){ })
-				.done(function()
-				{
-					$("#dashboard").load('modules/<?php echo basename(__DIR__); ?>/student.php?Student_ID='+Student_ID, function()
-					{
-						$(".landingloader").hide();
-						$("#dashboard").fadeTo(0,1);
-					});
-		  		})
-
-			}
-		});
 
 		//Update Student Email
-		$("#updateemail").unbind().click(function()
+		$("#updateclub").unbind().click(function()
 		{
 			var Email = $( "#studentemail" ).val();
 			var StudentID = $( "#studentid" ).text();
@@ -183,24 +176,10 @@
 			$.post("modules/<?php echo basename(__DIR__); ?>/savestudentemail.php", { Email: Email, StudentID: StudentID })
 			.done(function( data ) {
 				var notification = document.querySelector('.mdl-js-snackbar');
-				var data = { message: "Email Updated" };
+				var data = { message: "Club Updated" };
 				notification.MaterialSnackbar.showSnackbar(data);
   			});
 		});
-
-		var isOpen = false;
-		$("#displayInfo").off().on('click', function(){
-			isOpen = !isOpen;
-			if(isOpen){
-				$("#loginInformation").show();
-				$("#studentPassword").text("<?php if($Password != ""){ echo decrypt($Password, ''); }else{ echo ""; }?>");
-				$("#displayInfo").text('visibility_off');
-			}else{
-				$("#loginInformation").hide();
-				$("#studentPassword").text("");
-				$("#displayInfo").text('visibility');
-			}
-		})
 
 	});
 
