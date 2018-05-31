@@ -27,12 +27,13 @@
 
 	if($pagerestrictions == "")
 	{
-			$sqllookup = "SELECT Name, Description, Image, Building, Categories, Editors FROM club_info WHERE ID='$Club_ID'";
+			$sqllookup = "SELECT Name, Description, Email, Image, Building, Categories, Editors FROM club_info WHERE ID='$Club_ID'";
 			$result2 = $db->query($sqllookup);
 			$setting_preferences=mysqli_num_rows($result2);
 			$row = $result2->fetch_assoc();
 			$Name=htmlspecialchars($row["Name"], ENT_QUOTES);
 			$Description=htmlspecialchars($row["Description"], ENT_QUOTES);
+			$Email=htmlspecialchars($row["Email"], ENT_QUOTES);
 			$Building=htmlspecialchars($row["Building"], ENT_QUOTES);
 			$Categories=htmlspecialchars($row["Categories"], ENT_QUOTES);
 			$Image=htmlspecialchars($row["Image"], ENT_QUOTES);
@@ -64,7 +65,7 @@
 					echo "</div>";
 
 					echo "<div id='enrollment'>";
-						include "club_info_enrollment.php";
+						include "club_info_roster.php";
 					echo "</div>";
 
 				echo "</div>";
