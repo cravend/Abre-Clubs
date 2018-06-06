@@ -33,114 +33,158 @@ if($_GET){
 }
 
 ?>
-<div id="clubmodal" class="modal modal-fixed-footer modal-mobile-full">
-	<form class="col s12" id="form-club" method="post" action="">
-		<div class="modal-content" style="padding: 0px !important">
-			<!-- header -->
-			<div class="row" style='background-color: <?php echo getSiteColor(); ?>; padding: 24px;'>
-				<div class='col s11'>
-					<span class="truncate" style="color: #fff; font-weight: 500; font-size: 24px; line-height: 26px;">Create a new club</span>
+<div id="newclub" class="modal modal-fixed-footer modal-mobile-full">
+	<form class="col s12" id="form-addclub" method="post" action="modules/<?php echo basename(__DIR__); ?>/club_process.php">
+	<div class="modal-content" style="padding: 0px !important;">
+		<div class="row" style='background-color: <?php echo getSiteColor(); ?>; padding: 24px;'>
+			<div class='col s11'><span class="truncate" style="color: #fff; font-weight: 500; font-size: 24px; line-height: 26px;">Add Club</span></div>
+			<div class='col s1 right-align'><a class="modal-close"><i class='material-icons' style='color: #fff;'>clear</i></a></div>
+		</div>
+		<div style='padding: 0px 24px 0px 24px;'>
+			<div class="row">
+				<div class="input-field col s6">
+					<input id="club_name" name="club_name" placeholder="Name of the club" type="text" required>
+					<label class="active" id="club_name">Club Name</label>
 				</div>
-				<div class='col s1 right-align'>
-					<a class="modal-close"><i class='material-icons' style='color: #fff;'>clear</i></a>
+
+				<div class="input-field col s6">
+					<input id="club_email" name="club_email" placeholder="Contact email for the club" type="email" required>
+					<label id="club_email">Club Email</label>
 				</div>
 			</div>
 
-
-			<div class='row' style='padding: 0px 24px 0px 24px;'>
-				<div class='col s12'>
-					<h5>Student leaders</h5><br>
+			<div class="row">
+				<div class="input-field col s12">
+					<input id="club_description" name="club_description" placeholder="Description of the club" type="text" required>
+					<label id="club_description">Club Description</label>
 				</div>
-				<?php
-				for ($x = 0; $x <= 3; $x++)
-				{
-					$studentnumber=$x+1;
-					if ($studentnumber == 1){
-						echo "<div class='row'>";
-						echo "<div class='input-field col s6'>";
-						echo "<input id='student_name_$x' name='student_name_$x' type='text' placeholder='Required' autocomplete='off' required>";
-						echo "<label class='active' for='student_name_$x'>Student $studentnumber Name</label>";
-						echo "</div>";
-						echo "<div class='input-field col s6'>";
-						echo "<input id='student_email_$x' name='student_email_$x' type='email' placeholder='Required' autocomplete='off' required>";
-						echo "<label class='active' for='student_email_$x'>Student $studentnumber Email</label>";
-						echo "</div>";
-						echo "</div>";
-					}else{
-						echo "<div class='row'>";
-						echo "<div class='input-field col s6'>";
-						echo "<input id='student_name_$x' name='student_name_$x' type='text' placeholder='Optional' autocomplete='off'>";
-						echo "<label class='active' for='student_name_$x'>Student $studentnumber Name</label>";
-						echo "</div>";
-						echo "<div class='input-field col s6'>";
-						echo "<input id='student_email_$x' name='student_email_$x' type='email' placeholder='Optional' autocomplete='off'>";
-						echo "<label class='active' for='student_email_$x'>Student $studentnumber Email</label>";
-						echo "</div>";
-						echo "</div>";
-					}
-				}
-				?>
-				<!-- select privacy -->
-				<div class= 'row'>
-					<div class="input-field col s12 " display="block" >
-						<h5>Privacy</h5>
-						<div class='row'>
-							<select id='selectPrivacy' name='selectPrivacy' style="display: block !important;">
-								<option value='' disabled selected>Choose a setting</option>
-								<option value='public'>Public</option>
-								<option value='private'>Private</option>
-							</select>
+			</div>
+
+			<div class="row">
+				<div class="input-field col s12">
+					<div class="form-group row">
+						<div class="col s12"><p style="font-weight: 500;">Club Categories</p></div>
+						<div class="col s4">
+					    <p style="font-weight: 500;">STEM</p>
+			        <input type="checkbox" name="categories[]" value="science" id="science" class="filled-in">
+							<label for="science">Science</label><br>
+			        <input type="checkbox" name="categories[]" value="technology" id="technology" class="filled-in">
+							<label for="technology">Technology</label><br>
+			        <input type="checkbox" name="categories[]" value="engineering" id="engineering" class="filled-in">
+							<label for="engineering">Engineering</label><br>
+			        <input type="checkbox" name="categories[]" value="math" id="math" class="filled-in">
+							<label for="math">Math</label><br>
+						</div>
+						<div class="col s4">
+					    <p style="font-weight: 500;">Humanities</p>
+			        <input type="checkbox" name="categories[]" value="history" id="history" class="filled-in">
+							<label for="history">History</label><br>
+			        <input type="checkbox" name="categories[]" value="reading" id="reading" class="filled-in">
+							<label for="reading">Reading</label><br>
+			        <input type="checkbox" name="categories[]" value="writing" id="writing" class="filled-in">
+							<label for="writing">Writing</label><br>
+			        <input type="checkbox" name="categories[]" value="debate" id="debate" class="filled-in">
+							<label for="debate">Debate</label><br>
+						</div>
+						<div class="col s4">
+					    <p style="font-weight: 500;">Arts</p>
+			        <input type="checkbox" name="categories[]" value="drama" id="drama" class="filled-in">
+							<label for="drama">Drama</label><br>
+			        <input type="checkbox" name="categories[]" value="music" id="music" class="filled-in">
+							<label for="music">Music</label><br>
+			        <input type="checkbox" name="categories[]" value="visual-arts" id="visual-arts" class="filled-in">
+							<label for="visual-arts">Visual Arts</label>
 						</div>
 					</div>
 				</div>
-				<!-- select category -->
-				<div class= 'row'>
-					<div class="col s12" >
-						<h5>Category</h5>
-					</div>
-					<div class='row'>
-						<div class="input-field col s12">
-							<select id="selectCategory" name="selectCategory" style="display: block !important;">
-								<option value="" disabled selected>Choose a category</option>
-								<optgroup label="STEM">
-									<option value="science">Science</option>
-									<option value="technology">Technology</option>
-									<option value="engineering">Engineering</option>
-									<option value="math">Math</option>
-								</optgroup>
-								<optgroup label="Humanities">
-									<option value="history">History</option>
-									<option value="reading">Reading</option>
-									<option value="writing">Writing</option>
-									<option value="debate">Debate</option>
-								</optgroup>
-								<optgroup label="Arts">
-									<option value="drama">Drama</option>
-									<option value="music">Music</option>
-									<option value="visualArts">Visual Arts</option>
-								</optgroup>
-							</select>
-						</div>
-					</div>
+			</div>
+
+			<div class="row">
+				<div class="input-field col s12">
+					<input id="club_leaders" name="club_leaders" placeholder="Club Leaders (Emails Separated by Commas)" type="text">
+					<label for="club_leaders">Club Leaders</label>
 				</div>
+			</div>
 
+			<div class="row">
+				<div class="input-field col s12">
+					<input id="club_building" name="club_building" placeholder="Club building code" type="text" required>
+					<label id="club_building">Club Building</label>
+				</div>
+			</div>
 
-				<div class= 'row'>
-					<div class="input-field col s12 " display="block" >
-						<h5>Description</h5>
-						<div class='row'>
-			          <textarea id="textDescription" class="textarea"></textarea>
-			        </div>
-						</div>
-					</div>
+			<div class="row">
+				<div class="input-field col s12">
+					<input type="checkbox" name="club_private" id="club_private" class="filled-in" value="0">
+					<label for="club_private">Private Club</label><br>
+				</div>
+			</div>
 
+				<input type="hidden" name="course_id" id="course_id">
 			</div>
 		</div>
-
 		<div class="modal-footer">
-			<button type="submit" class="modal-action waves-effect btn-flat white-text submitbutton" style='margin-left:5px; background-color: <?php echo getSiteColor(); ?>'>Submit Application</button>
-			<a class="modal-close waves-effect btn-flat white-text cancelbutton"  style='background-color: <?php echo getSiteColor(); ?>'>Cancel</a>
-		</div>
-
+			<button type="submit" class="modal-action waves-effect btn-flat white-text" style='margin-left:5px; background-color: <?php echo getSiteColor(); ?>'>Save</button>
+			<a class="modal-close waves-effect btn-flat white-text"  style='background-color: <?php echo getSiteColor(); ?>'>Cancel</a>
+	</div>
 	</form>
 </div>
+
+<script>
+
+$(function()
+{
+
+	$('select').material_select();
+
+	//Add/Edit a Course
+	$('#form-addclub').submit(function(event){
+		event.preventDefault();
+
+		var form = $('#form-addclub');
+		var formMessages = $('#form-messages');
+
+		$('#addclub').closeModal({
+			in_duration: 0,
+			out_duration: 0,
+		});
+		var formData = $(form).serialize();
+		$.ajax({
+			type: 'POST',
+			url: $(form).attr('action'),
+			data: formData
+		})
+
+		//Show the notification
+		.done(function(response) {
+
+			$("#content_holder").load( "modules/<?php echo basename(__DIR__); ?>/clubs_display.php", function(){
+
+				mdlregister();
+
+				var notification = document.querySelector('.mdl-js-snackbar');
+				var data = { message: response };
+				notification.MaterialSnackbar.showSnackbar(data);
+
+			});
+
+		})
+	});
+
+
+
+
+	var wrapper         = $(".leader_emails");
+	var add_button      = $(".add_email");
+
+	var x = 1;
+	$(add_button).click(function(e){
+		e.preventDefault();
+		x++;
+		$(wrapper).append('<div class="row"><div class="col s10"><input type="text" id="leader_' + x + '" name="leader_' + x + '></div><div class="col s1"><i class="material-icons remove_email">remove_circle</i></div><div class="col s1"><i class="material-icons add_email">add_circle</i></div></div>'); //add input box
+	});
+	$(wrapper).on("click",".remove_email", function(e){
+		e.preventDefault(); $(this).parent('div').parent('div').remove();
+  })
+});
+</script>

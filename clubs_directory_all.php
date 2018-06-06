@@ -50,18 +50,18 @@
 		if($searchquery == ""){
 			if($pagerestrictionsedit == ""){
 				$querycount = "SELECT COUNT(*) FROM club_info";
-				$sql = "SELECT ID, Name, Description, Image, Building, Categories, Editors FROM club_info ORDER BY Name LIMIT $LowerBound, $PerPage";
+				$sql = "SELECT ID, Private, Name, Description, Email, Editors, Image, Building, Categories FROM club_info ORDER BY Name LIMIT $LowerBound, $PerPage";
 			}else{
-				$querycount = "SELECT COUNT(*) FROM club_info WHERE Hidden = '0'";
-				$sql = "SELECT ID, Name, Description, Image, Building, Categories, Editors FROM club_info WHERE Hidden = '0' ORDER BY Name LIMIT $LowerBound, $PerPage";
+				$querycount = "SELECT COUNT(*) FROM club_info WHERE Private = '0'";
+				$sql = "SELECT ID, Private, Name, Description, Email, Editors, Image, Building, Categories FROM club_info WHERE Private = '0' ORDER BY Name LIMIT $LowerBound, $PerPage";
 			}
 		}else{
 			if($pagerestrictionsedit == ""){
 				$querycount = "SELECT COUNT(*) FROM club_info WHERE (LOWER(Name) LIKE '%$searchquery%' OR LOWER(Description) LIKE '%$searchquery%' OR LOWER(Categories) LIKE '%$searchquery%')";
-				$sql = "SELECT ID, Name, Description, Image, Building, Categories, Editors FROM club_info WHERE (LOWER(Name) LIKE '%$searchquery%' OR LOWER(Description) LIKE '%$searchquery%' OR LOWER(Categories) LIKE '%$searchquery%') ORDER BY Name LIMIT $LowerBound, $PerPage";
+				$sql = "SELECT ID, Private, Name, Description, Email, Editors, Image, Building, Categories FROM club_info WHERE (LOWER(Name) LIKE '%$searchquery%' OR LOWER(Description) LIKE '%$searchquery%' OR LOWER(Categories) LIKE '%$searchquery%') ORDER BY Name LIMIT $LowerBound, $PerPage";
 			}else{
-				$querycount = "SELECT COUNT(*) FROM club_info WHERE Hidden = '0' AND (LOWER(Name) LIKE '%$searchquery%' OR LOWER(Description) LIKE '%$searchquery%' OR LOWER(Categories) LIKE '%$searchquery%')";
-				$sql = "SELECT ID, Name, Description, Image, Building, Categories, Editors FROM club_info WHERE Hidden = '0' AND (LOWER(Name) LIKE '%$searchquery%' OR LOWER(Description) LIKE '%$searchquery%' OR LOWER(Categories) LIKE '%$searchquery%') ORDER BY Name LIMIT $LowerBound, $PerPage";
+				$querycount = "SELECT COUNT(*) FROM club_info WHERE Private = '0' AND (LOWER(Name) LIKE '%$searchquery%' OR LOWER(Description) LIKE '%$searchquery%' OR LOWER(Categories) LIKE '%$searchquery%')";
+				$sql = "SELECT ID, Private, Name, Description, Email, Editors, Image, Building, Categories FROM club_info WHERE Private = '0' AND (LOWER(Name) LIKE '%$searchquery%' OR LOWER(Description) LIKE '%$searchquery%' OR LOWER(Categories) LIKE '%$searchquery%') ORDER BY Name LIMIT $LowerBound, $PerPage";
 			}
 		}
 
@@ -90,22 +90,23 @@
 				<tbody>
 			<?php
 			}
-
 			$Club_ID = htmlspecialchars($row["ID"], ENT_QUOTES);
-			$Club_Hidden = htmlspecialchars($row["Hidden"], ENT_QUOTES);
-			$Name = htmlspecialchars($row["Name"], ENT_QUOTES);
-			$Description = htmlspecialchars($row["Description"], ENT_QUOTES);
-			$Building = htmlspecialchars($row["Building"], ENT_QUOTES);
-			$Image = htmlspecialchars($row["Image"], ENT_QUOTES);
-			$Editors = htmlspecialchars($row["Editors"], ENT_QUOTES);
-			if($Image == ""){ $Image = "generic.jpg"; }
+			$Club_Private = htmlspecialchars($row["Private"], ENT_QUOTES);
+			$Club_Name = htmlspecialchars($row["Name"], ENT_QUOTES);
+			$Club_Description = htmlspecialchars($row["Description"], ENT_QUOTES);
+			$Club_Email = htmlspecialchars($row["Email"], ENT_QUOTES);
+			$Club_Editors = htmlspecialchars($row["Editors"], ENT_QUOTES);
+			$Club_Image = htmlspecialchars($row["Image"], ENT_QUOTES);
+			$Club_Building = htmlspecialchars($row["Building"], ENT_QUOTES);
+			$Club_Categories = htmlspecialchars($row["Categories"], ENT_QUOTES);
+			if($Club_Image == ""){ $Club_Image = "generic.jpg"; }
 
 			echo "<tr class='clubrow pointer'>";
 				echo "<td class='hide-on-med-and-down exploreclub' data-href='#clubs/$Club_ID'>";
-					echo "<img src='modules/".basename(__DIR__)."/images/$Image' class='profile-avatar-small'>";
+					echo "<img src='modules/".basename(__DIR__)."/images/$Club_Image' class='profile-avatar-small'>";
 					echo "</td>";
-					echo "<td class='exploreclub' data-href='#clubs/$Club_ID'>$Name</td>";
-					echo "<td class='hide-on-med-and-down exploreclub' data-href='#clubs/$Club_ID'>$Description</td>";
+					echo "<td class='exploreclub' data-href='#clubs/$Club_ID'>$Club_Name</td>";
+					echo "<td class='hide-on-med-and-down exploreclub' data-href='#clubs/$Club_ID'>$Club_Description</td>";
 					echo "<td style='width:30px;'>";
 
 					include "../../core/abre_dbconnect.php";
@@ -125,7 +126,7 @@
 						}
 
 						if($pagerestrictionsedit == ""){
-							echo "<li class='mdl-menu__item modal-addclub' href='#create_club' data-name='$Name' data-subject='$Description' data-clubid='$Club_ID' data-editors='$Editors' data-categories='$Categories' data-clubhidden='$Club_Hidden' data-image='$Image' style='font-weight:400'>Edit</a></li>";
+							echo "<li class='mdl-menu__item editclub' href='#newclub' data-id='$Club_ID' data-private='$Club_Private' data-name='$Club_Name' data-description='$Club_Description' data-email='$Club_Email' data-editors='$Club_Editors' data-image='$Club_Image' data=building='$Club_Building' data-categories='$Club_Categories' style='font-weight:400'>Edit</a></li>";
 							echo "<li class='mdl-menu__item duplicateclub' data-clubid='$Club_ID'>Duplicate</li>";
 							echo "<li class='mdl-menu__item deleteclub' data-clubid='$Club_ID'>Delete</li>";
 						}
@@ -247,42 +248,32 @@
 			}
 		});
 
-		$(".modal-addclub").off().on("click", function () {
-			var Club_Hidden = $(this).data('clubhidden');
-			if(Club_Hidden == '1'){
-				$(".modal-content #club_hidden").prop('checked',true);
-			}else{
-				$(".modal-content #club_hidden").prop('checked',false);
-			}
-			var Club_ID = $(this).data('clubid');
+		$(".newclub").off().on("click", function () { //data-id='$Club_ID' data-editors='$Club_Editors' data-image='$Club_Image' data=building='$Club_Building' data-categories='$Club_Categories'
+			var Club_ID = $(this).data('id');
 			$(".modal-content #club_id").val(Club_ID);
-			var Club_Name = $(this).data('title');
-			$(".modal-content #club_title").val(Club_Name);
-			var Club_Grade = $(this).data('grade');
-			var Club_Editors = $(this).data('editors');
-			$(".modal-content #club_editors").val(Club_Editors);
-			if(Club_Grade != "blank"){
-				var Club_Grade_String=String(Club_Grade);
-				if( Club_Grade_String.indexOf(',') >= 0){
-					var dataarrayclub=Club_Grade.split(", ");
-					$("#club_grade").val(dataarrayclub);
-				}else{
-					$("#club_grade").val(Club_Grade_String);
-				}
+			var Club_Private = $(this).data('private');
+			if(Club_Private == '1'){
+				$(".modal-content #club_private").prop('checked',true);
 			}else{
-				$("#club_grade").val('');
+				$(".modal-content #club_private").prop('checked',false);
 			}
-			var Club_Description = $(this).data('subject');
-			if(Club_Description != "blank"){
-				$("#club_subject option[value='"+Club_Description+"']").prop('selected',true);
-			}else{
-				$("#club_subject option[value='']").prop('selected',true);
-			}
+			var Club_Name = $(this).data('name');
+			$("#club_name").val(Club_Name);
+			var Club_Description = $(this).data('description');
+			$(".modal-content #club_description").val(Club_Description);
+			var Club_Email = $(this).data('email');
+			$(".modal-content #club_email").val(Club_Email);
+			var Club_Leaders = $(this).data('editors');
+			$(".modal-content #club_email").val(Club_Leaders);
+			var Club_Building = $(this).data('building');
+			$(".modal-content #club_building").val(Club_Building);
+			alert("nice");
 
-			$('#create_club').openModal({
+
+			$('#newclub').openModal({
 				in_duration: 0,
 				out_duration: 0,
-				ready: function() { $("#club_title").focus(); }
+				ready: function() { $("#club_name").focus(); }
 			});
 
 		});

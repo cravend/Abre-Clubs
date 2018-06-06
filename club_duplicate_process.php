@@ -27,20 +27,22 @@
 	{
 
 		//Duplicate the club
-		$sqllookup2 = "SELECT ID, Title, Level, Subject, Grade, Image FROM club_info WHERE ID='$club_id'";
+		$sqllookup2 = "SELECT Private, Name, Description, Email, Editors, Image, Building, Categories FROM club_info WHERE ID='$club_id'";
 		$result3 = $db->query($sqllookup2);
 		while($row2 = $result3->fetch_assoc())
 		{
-			$Club_ID=$row2["ID"];
-			$Club_Title=$row2["Title"];
-			$Club_Title="$Club_Title - Duplicated";
-			$Club_Level=$row2["Level"];
-			$Club_Subject=$row2["Subject"];
-			$Club_Grade=$row2["Grade"];
+			$Club_Private=$row2["Private"];
+			$Club_Name=$row2["Name"];
+			$Club_Name="$Club_Name - Duplicated";
+			$Club_Description=$row2["Description"];
+			$Club_Email=$row2["Subject"];
+			$Club_Editors=$row2["Editors"];
 			$Club_Image=$row2["Image"];
+			$Club_Building=$row2["Building"];
+			$Club_Categories=$row2["Categories"];
 
 			$stmt = $db->stmt_init();
-			$sql = "INSERT INTO club_info (Title, Level, Subject, Grade, Image) VALUES ('$Club_Title', '$Club_Level', '$Club_Subject', '$Club_Grade', '$Club_Image');";
+			$sql = "INSERT INTO club_info (Private, Name, Description, Email, Editors, Image, Building, Categories) VALUES ('$Club_Private', '$Club_Name', '$Club_Name', '$Club_Description', '$Club_Email', '$Club_Editors', '$Club_Image', '$Club_Building', '$Club_Categories');";
 			$stmt->prepare($sql);
 			$stmt->execute();
 			$new_clubID = $stmt->insert_id;
@@ -48,8 +50,8 @@
 		}
 		$db->close();
 
+		echo "The club has NOT been duplicated.!!$club_id";
 	}
 
-	echo "The club has been duplicated.";
 
 ?>

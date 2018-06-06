@@ -25,7 +25,7 @@
 ?>
 
 		<div class='fixed-action-btn buttonpin'>
-			<a class='modal-addclub btn-floating btn-large waves-effect waves-light' style='background-color: <?php echo getSiteColor(); ?>' id="create_club" data-grade='blank' data-subject='blank' data-position='left' data-title='' href='#club'><i class='large material-icons'>add</i></a>
+			<a class='newclub btn-floating btn-large waves-effect waves-light' style='background-color: <?php echo getSiteColor(); ?>' id="create_club" data-grade='blank' data-subject='blank' data-position='left' data-title='' href='#newclub'><i class='large material-icons'>add</i></a>
 			<div class="mdl-tooltip mdl-tooltip--left" for="create_club">Create Club</div>
 		</div>
 
@@ -38,7 +38,7 @@
 	$(function()
 	{
 
-    	$('.modal-addclub').leanModal({
+    	$('.newclub').leanModal({
 	    	in_duration: 0,
 				out_duration: 0,
 	    	ready: function() { $("#club_title").focus(); }
