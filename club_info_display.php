@@ -21,43 +21,35 @@
 	require_once(dirname(__FILE__) . '/../../core/abre_verification.php');
 	require(dirname(__FILE__) . '/../../core/abre_dbconnect.php');
 	require_once(dirname(__FILE__) . '/../../core/abre_functions.php');
-	require_once('permissions.php');
 
-	if($pagerestrictions=="")
+	//Get Variables Passed to Page
+	if(isset($_GET["clubid"])){ $ClubID=htmlspecialchars($_GET["clubid"], ENT_QUOTES); }else{ $ClubID=""; }
+
+	if($ClubID!="")
 	{
 
-		//Get Variables Passed to Page
-		if(isset($_GET["clubid"])){ $ClubID=htmlspecialchars($_GET["clubid"], ENT_QUOTES); }else{ $ClubID=""; }
-
-		if($ClubID!="")
-		{
-
-			echo "<div style='position: absolute; top:0; bottom:0; left:0; right:0; overflow-y: hidden;'>";
+		echo "<div style='position: absolute; top:0; bottom:0; left:0; right:0; overflow-y: hidden;'>";
 
 
-				//Dashboard Data
-				echo "<div id='overview' style='position:absolute; width: 100%; left:0; top:0; bottom:0; right:0; overflow-y: scroll; padding:20px;'>";
-					echo "<div id='p2' class='mdl-progress mdl-js-progress mdl-progress__indeterminate landingloader' style='width:100%;'></div>";
-					echo "<div id='dashboard'>";
+			//Dashboard Data
+			echo "<div id='overview' style='position:absolute; width: 100%; left:0; top:0; bottom:0; right:0; overflow-y: scroll; padding:20px;'>";
+				echo "<div id='p2' class='mdl-progress mdl-js-progress mdl-progress__indeterminate landingloader' style='width:100%;'></div>";
+				echo "<div id='dashboard'>";
 
-					echo "</div>";
 				echo "</div>";
-
 			echo "</div>";
 
-			?>
-			<script>
+		echo "</div>";
 
-				//Load the Overview
-				var ClubID="<?php echo $ClubID; ?>";
-				$("#dashboard").load('modules/<?php echo basename(__DIR__); ?>/club_info_dashboard.php?ClubID='+ClubID, function(){ $(".landingloader").hide(); });
+		?>
+		<script>
 
-			</script>
-			<?php
+			//Load the Overview
+			var ClubID="<?php echo $ClubID; ?>";
+			$("#dashboard").load('modules/<?php echo basename(__DIR__); ?>/club_info_dashboard.php?ClubID='+ClubID, function(){ $(".landingloader").hide(); });
 
-		}
+		</script>
+		<?php
 
-
-	//End Page Restrictions
 	}
 ?>

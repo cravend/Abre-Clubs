@@ -18,7 +18,6 @@
 
 	//Required configuration files
 	require_once(dirname(__FILE__) . '/../../core/abre_verification.php');
-	require_once('permissions.php');
 
 	if(CONSTANT('SITE_MODE') == "DEMO"){
 		echo "<div style='padding:30px; text-align:center; width:100%;'>";
@@ -33,10 +32,7 @@
 			echo "</div>";
 		echo "</div>";
 	}else{
-		if($pagerestrictions=="")
-		{
-			echo "<div id='displaylibrary'>"; include "clubs_display.php"; echo "</div>";
-		}
+		echo "<div id='displaylibrary'>"; include "clubs_display.php"; echo "</div>";
 	}
 ?>
 

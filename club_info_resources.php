@@ -21,14 +21,6 @@
 	require_once(dirname(__FILE__) . '/../../core/abre_functions.php');
 	require_once(dirname(__FILE__) . '/../../core/abre_dbconnect.php');
 	// require_once('functions.php');
-	require_once('permissions.php');
-
-	if($pagerestrictions=="")
-	{
-
-
-		echo "<iframe src='https://drive.google.com/embeddedfolderview?id=1FlLrlMKqoXaYO3nkxjfpQ4XgTRmqWre2#list' style='width: 100%;' frameborder='0'></iframe>";
-
-	}
+	echo "<iframe src='https://drive.google.com/embeddedfolderview?id=1FlLrlMKqoXaYO3nkxjfpQ4XgTRmqWre2#list' style='width: 100%;' frameborder='0'></iframe>";
 
 ?>

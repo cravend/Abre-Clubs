@@ -33,6 +33,4 @@
 	$pageicon = "layers";
 	$pagepath = "clubs";
 
-	require_once('permissions.php');
-
 ?>

@@ -19,43 +19,40 @@
 	//Required configuration files
 	require_once(dirname(__FILE__) . '/../../core/abre_verification.php');
 	require(dirname(__FILE__) . '/../../core/abre_dbconnect.php');
-	require_once('permissions.php');
+	require_once(dirname(__FILE__) . '/../../core/abre_functions.php');
 
-	if($pagerestrictions=="")
-	{
-		$sql = "SELECT COUNT(*) FROM club_info";
-		$result = $db->query($sql);
-		$resultrow = $result->fetch_assoc();
-		$numClubs = $resultrow["COUNT(*)"];
+	$sql = "SELECT COUNT(*) FROM club_info";
+	$result = $db->query($sql);
+	$resultrow = $result->fetch_assoc();
+	$numClubs = $resultrow["COUNT(*)"];
 
-		if($numClubs > 0){
-			echo "<div class='page_container'>";
-				echo "<div class='row'>";
-					echo "<div class='col l12 m12 s12' style='padding:0'>";
-						echo "<nav style='background-color:"; echo getSiteColor(); echo ";'>";
-								echo "<div class='nav-wrapper'>";
-									echo "<form id='form-search' method='post' action='modules/Abre-Clubs/clubs_directory_all.php'>";
-										echo "<div class='input-field'>";
-											echo "<input id='searchquery' type='search' placeholder='Search' autocomplete='off'>";
-											echo "<label class='label-icon' for='searchquery'><i class='material-icons'>search</i></label>";
-										echo "</div>";
-									echo "</form>";
-								echo "</div>";
-						echo "</nav>";
-					echo "</div>";
+	if($numClubs > 0){
+		echo "<div class='page_container'>";
+			echo "<div class='row'>";
+				echo "<div class='col l12 m12 s12' style='padding:0'>";
+					echo "<nav style='background-color:"; echo getSiteColor(); echo ";'>";
+							echo "<div class='nav-wrapper'>";
+								echo "<form id='form-search' method='post' action='modules/Abre-Clubs/clubs_directory_all.php'>";
+									echo "<div class='input-field'>";
+										echo "<input id='searchquery' type='search' placeholder='Search' autocomplete='off'>";
+										echo "<label class='label-icon' for='searchquery'><i class='material-icons'>search</i></label>";
+									echo "</div>";
+								echo "</form>";
+							echo "</div>";
+					echo "</nav>";
 				echo "</div>";
 			echo "</div>";
+		echo "</div>";
 
-			echo "<div id='displayclubs'>";
-				include "clubs_directory_all.php";
-			echo "</div>";
-		}else{
-			echo "<div class='row' style='padding:56px; text-align:center; width:100%;'><span style='font-size: 22px; font-weight:700'>No Clubs Yet</span><br><p style='font-size:16px; margin:20px 0 0 0;'>Click the '+' in the bottom right to create a club.</p></div>";
-		}
-		include "club_button.php";
-
-		$db->close();
+		echo "<div id='displayclubs'>";
+			include "clubs_directory_all.php";
+		echo "</div>";
+	}else{
+		echo "<div class='row' style='padding:56px; text-align:center; width:100%;'><span style='font-size: 22px; font-weight:700'>No Clubs Yet</span><br><p style='font-size:16px; margin:20px 0 0 0;'>Click the '+' in the bottom right to create a club.</p></div>";
 	}
+	include "club_button.php";
+
+	$db->close();
 ?>
 
 <script>

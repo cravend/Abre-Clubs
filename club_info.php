@@ -19,12 +19,9 @@
 	//Required configuration files
 	require_once(dirname(__FILE__) . '/../../core/abre_verification.php');
 	require_once(dirname(__FILE__) . '/../../core/abre_functions.php');
-	require_once('permissions.php');
 
-	if($pagerestrictions=="")
-	{
-		echo "<div id='displayguide'>"; include "club_info_display.php"; echo "</div>";
-	}
+	echo "<div id='displayguide'>"; include "club_info_display.php"; echo "</div>";
+
 ?>
 
 
