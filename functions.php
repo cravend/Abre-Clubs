@@ -13,11 +13,7 @@
 		$row = $result->fetch_assoc();
     $editors = $row["editors"];
     $editors = strtolower($editors);
-    if (strpos($editors, $email) !== false) {
-      return true;
-    } else {
-      return false;
-    }
+    return (strpos($editors, $email) !== false ? true : false);
   }
 
 
