@@ -20,13 +20,6 @@ require_once(dirname(__FILE__) . '/../../core/abre_verification.php');
 require(dirname(__FILE__) . '/../../core/abre_dbconnect.php');
 require_once(dirname(__FILE__) . '/../../core/abre_functions.php');
 
-if($_GET){
-	if(isset($_GET['addStudent'])){
-		echo "addstudent was called ";
-		addStudent();
-	}
-}
-
 ?>
 <div id="newclub" class="modal modal-fixed-footer modal-mobile-full">
 	<form class="col s12" id="form-addclub" method="post" action="modules/<?php echo basename(__DIR__); ?>/club_process.php">
@@ -101,19 +94,21 @@ if($_GET){
 				</div>
 			</div>
 
-			<div class="row">
-				<div class="input-field col s12">
-					<input id="club_building" name="club_building" placeholder="Club building code" type="text" required>
-					<label id="club_building">Club Building</label>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="input-field col s12">
-					<input type="checkbox" name="club_private" id="club_private" class="filled-in" value="0">
-					<label for="club_private">Private Club</label><br>
-				</div>
-			</div>
+			<?php
+				$buildings = getAllSchoolCodesAndNames();
+				if (is_array($buildings)) {
+					echo '<div class="row">';
+						echo '<div class="input-field col s12">';
+							echo '<input id="club_building" name="club_building" placeholder="Club building code" type="text" required>';
+							echo '<select required>';
+								foreach($buildings as $code => $name) {
+									echo '<option value="' . $code . '">' . $name . '</option>';
+								}
+							echo '</select>';
+						echo '<label id="club_building">Club Building</label>';
+						echo '</div>';
+					echo '</div>';
+			?>
 
 				<input type="hidden" name="course_id" id="course_id">
 			</div>
